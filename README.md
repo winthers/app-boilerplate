@@ -24,11 +24,14 @@ This is my SPA boilerplate for building Backbone Marionette Apps, it contains a 
 
 
 #### TODO
+
 This project is still under development, so is likely to change at any time.
 
 * Make a better build process (All assets should be moved to a .tmp folder and mini-fiction of html and images should take place before moving all files to a dist folder (like yeoman)).
 
 * Maybe the vendor scripts should be pulled in with bower.
+
+* Scss should have a vendor contaning bootstrap/foundation
 
 
 
@@ -64,6 +67,96 @@ Here is a list of dependencies that will be installed:
 * grunt-contrib-clean
 * grunt-mocha
 
+
+
+## Using the CLI
+
+Starts the watch process, that will compile templates/scss and trigger reload. this should be used when 
+developing the app.
+
+```shell
+grunt.cmd
+```
+
+
+
+### Project layout
+
+```shell
+root
+├───src
+│	├───js
+│	│   ├───app
+│	│   │   ├───apps			# contains all app modules
+│	│   │   ├───base 			# base model/collection/views
+│	│   │   ├───components 		# general reusable components like loader views.
+│	│   │   ├───config 			# configurations of vendor/lib like marionette.render
+│	│   │   ├───entities 		# apps data modules 
+│	│   │   ├───mixins 			# what is this?
+│	│   │   └───utils 			# util scripts.
+│	│   ├───lib
+│	│   └───vendor 
+│	├───scss 					# scss files.
+│	├───views					# contains index.tpl 
+├───public 						# development folder containing html and assets
+└───test 						# unit tests
+```
+
+
+### Apps folder layout
+
+This is just to document what i do and is not required. 
+
+Apps should follow the restful interface, defining folders for
+
+* **show** - show a single item		
+* **list** - list a group of items		
+* **add**  - create a item
+* **edit** - edit item ?
+* **remove** - remove item
+
+Each folder should contain its own template folder containing all templates needed to render it.
+
+In the root of the apps folder there should be a **appname.js** file there is the upper most module there will define the public api, and all 
+communication of the submodules.
+
+
+
+
+```shell
+apps
+└───Appname
+    │   Appname.js 	# Master module.
+    │
+    ├───add
+    │   │   add.controller.js
+    │   │   add.views.js
+    │   │
+    │   └───templates
+    │           add.tpl
+    │
+    ├───list
+    │   │   list.controller.js
+    │   │   list.views.js
+    │   │
+    │   └───templates
+    │           list.tpl
+    │
+    ├───remove
+    │   │   remove.controller.js
+    │   │   remove.views.js
+    │   │
+    │   └───templates
+    │           remove.tpl
+    │
+    └───show
+        │   remove.controller.js
+        │   remove.views.js
+        │
+        └───templates
+                remove.tpl
+
+```
 
 
 ## Release History
