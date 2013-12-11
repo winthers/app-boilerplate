@@ -1,0 +1,44 @@
+{
+  "name": "spa-boilerplate",
+  "version": "0.1.0",
+  "description": "Bootstrap for my html5/spa projects",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winthers/spa-bootstrap.git"
+  },
+  "author": "Martin B. Winther",
+  "license": "MIT",
+  "readmeFilename": "readme.md",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-jst": "~0.5.1",
+    "grunt-contrib-compass": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-preprocess": "~3.0.1",
+    "grunt-mocha": "latest",
+    "grunt-htmlcompressor": "latest",
+    "grunt-pngmin": "latest",
+    "grunt-scriptincluder": "latest"
+  },
+  "devDependencies": {
+    "grunt-usemin": "~0.1.12",
+    "grunt-contrib-htmlmin": "~0.1.3"
+  },
+  "gitHead": "71795cfa478122d2988b39757fc138e3309939b1",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "Boilerplate",
+    "for",
+    "my",
+    "spas"
+  ]
+}

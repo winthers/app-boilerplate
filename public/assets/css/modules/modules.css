@@ -1,0 +1,108 @@
+/* modules */
+/*
+ Subfolders witch sprites is easy:
+ ---------------------------------
+*/
+/* line 66, tec/backend/*.png */
+.backend-sprite, .backend-expressjs, .backend-mongodb, .backend-nodejs2, .backend-nodejsLogo {
+  background: url('fisse/tec/backend-s09cbcc98ab.png') no-repeat;
+}
+
+/* line 74, tec/frontend/*.png */
+.frontend-sprite, .frontend-backbone, .frontend-css3, .frontend-html5, .frontend-jquery_hosting, .frontend-marionette {
+  background: url('fisse/tec/frontend-s6753d148df.png') no-repeat;
+}
+
+/* line 58, tec/enviorment/*.png */
+.enviorment-sprite, .enviorment-grunt, .enviorment-npm, .enviorment-underscore {
+  background: url('fisse/tec/enviorment-sd069ea7044.png') no-repeat;
+}
+
+/* line 58, tec/languages/*.png */
+.languages-sprite, .languages-I-know .java-script, .languages-I-know .c-sharp {
+  background: url('fisse/tec/languages-s085c9c4507.png') no-repeat;
+}
+
+/* 
+	To include sprites use 
+	----------------------
+	@include: all-(the-name-of-the-sprite-here)-sprites;
+*/
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.backend-expressjs {
+  background-position: 0 -705px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.backend-mongodb {
+  background-position: 0 -256px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.backend-nodejs2 {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.backend-nodejsLogo {
+  background-position: 0 -430px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.frontend-backbone {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.frontend-css3 {
+  background-position: 0 -1172px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.frontend-html5 {
+  background-position: 0 -660px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.frontend-jquery_hosting {
+  background-position: -200px 0;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.frontend-marionette {
+  background-position: 0 -300px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.enviorment-grunt {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.enviorment-npm {
+  background-position: 0 -650px;
+}
+
+/* line 60, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.enviorment-underscore {
+  background-position: 0 -512px;
+}
+
+/*
+ 	To include only part of sprites
+*/
+/* line 35, ../../../../src/scss/modules/_sprites.scss */
+.languages-I-know .java-script {
+  background-position: 0 -300px;
+}
+/* line 36, ../../../../src/scss/modules/_sprites.scss */
+.languages-I-know .c-sharp {
+  background-position: 0 0;
+}
+
+/* To use icon siszes u can do like this */
+/* line 44, ../../../../src/scss/modules/_sprites.scss */
+.some-class {
+  height: 246px;
+  width: 300px;
+}
