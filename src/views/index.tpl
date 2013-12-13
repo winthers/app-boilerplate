@@ -22,26 +22,13 @@
     ****************** -->
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
-    <!-- Core dependencies
-    ******************************* -->
-    <script type="text/javascript" src="../src/js/lib/jquery.1.9.1.js"></script>
-    <script type="text/javascript" src="../src/js/lib/underscore.1.5.2.js"></script>
-    <script type="text/javascript" src="../src/js/lib/backbone.1.0.0.js"></script>
-    <script type="text/javascript" src="../src/js/lib/backbone.marionette.1.1.0.js"></script>
-
-
-    <!-- lib configurations -->
-    <script type="text/javascript" src="../src/js/app/config/marionette/render/render.js"></script>
-
-
-
-
     <!-- JST:Template Bootstrapping
     ******************************** -->
     <script type="text/javascript" src="assets/js/templates.js"></script>
 
-    <!-- application files -->
-    <script src="../src/js/app/app.js"></script>
+
+    <!-- [@include_scripts] -->
+
 
 
 <!-- @endif -->

@@ -71,7 +71,7 @@ module.exports = function(grunt) {
 			indexTemplate: { 
 				// --  Changes to the index template will trigger a recompile - and a livereload
 				files: ["src/views/index.tpl"],
-				tasks: ["preprocess"]
+				tasks: ["preprocess", "scriptincluder"]
 			},
 
 		    liveReloadOnCssChanges: {
@@ -308,7 +308,12 @@ module.exports = function(grunt) {
 	// Default task.
 	// ----------------------------------------------
 	grunt.registerTask('default', ["watch"]); 
-	grunt.registerTask("build", ["compass", "jst", "concat",/* "removelogging",*/ "uglify", "clean", "preprocess"]);
+
+
+
+
+	grunt.registerTask("build:prod", ["compass", "jst", "concat", "uglify", "clean", "preprocess"]);
+	grunt.registerTask("build:dev",  ["compass", "jst", "concat", "preprocess", "scriptincluder"]);
 
 
 
