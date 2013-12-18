@@ -67,27 +67,24 @@ module.exports = function(grunt) {
       },
 
       indexTemplate: {
-        // --  Changes to the index template will trigger a recompile - and a livereload
         files: ["src/views/index.tpl"],
         tasks: ["preprocess", "scriptincluder"]
       },
 
-      liveReloadOnCssChanges: {
+      scripts: {
+          files: ["src/js/*.js", "src/js/**/*.js"],
+          tasks: ["preprocess", "scriptincluder"]
+      },
+
+      css: {
         options: {
           livereload: true
         },
         files: [
           "public/assets/css/main.css"
         ]
-      },
-      liveReloadOn_HTML_and_JS_Changes: {
-        options: {
-          livereload: true
-        },
-        files: [
-          "public/index.html"
-        ]
-      },
+      }
+
     },
 
     /**
@@ -101,14 +98,12 @@ module.exports = function(grunt) {
         separator: '\n /***************************/ \n'
       },
 
-      /* Core dependicies */
       libs: {
         src: [
           "src/js/lib/jquery.1.9.1.min.js", "src/js/lib/underscore.1.5.2.min.js", "src/js/lib/backbone.1.0.0.min.js", "src/js/lib/backbone.marionette.1.1.0.min.js"
         ],
         dest: 'public/assets/js/lib.js'
       },
-
 
       dependiciesConfiguration: {
         src: ["src/js/app/config/**/*.js"],
@@ -260,8 +255,8 @@ module.exports = function(grunt) {
     },
 
     /*
-			https://github.com/kmiyashiro/grunt-mocha
-		*/
+      https://github.com/kmiyashiro/grunt-mocha
+    */
     mocha: {
       all: {
         src: ['test/**/*.html'],
