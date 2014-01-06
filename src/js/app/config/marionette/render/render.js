@@ -1,83 +1,67 @@
 
-
 (function(Backbone){
 
-	/*
-		@method 
-			replaceTokens
 
-		@desciption 
-	    	Replaces #{whatever} in the string ( it dosent matter what the name of the value in {name} 
-	    	is sins its just for easy readibility).
+    function PathReplacer () {}
 
-	    @example
-			replaceTokens(
-		   		"src/js/app/apps/#{module}/#{submodule}/templates/#{templateName}.tpl",
-		    	"appName/folderName/templateName"
-			)
-		
-			// out => "src/js/app/apps/appName/folderName/templates/templateName.tpl"
-	*/
-	function replaceTokens (strTokens, strValues) {
-    
-	    var pathTemplate = strTokens;
-	    var desiretPath = strValues;
-	    
-	    // Splits the strValues so a/b/c will be an array
-	    var strValues   = desiretPath.split("/")
-	    var tokens      = pathTemplate.match(/#\{[^\}]*\}/gi)
-	    
-	    // then it replacese token (n) with strValue (n)
-	    for(var s in strValues) {
-	        pathTemplate = pathTemplate.replace(tokens[s], strValues[s])       
-	    }
-	    
-	    return pathTemplate
+    _.extend(PathReplacer.prototype, {
+        replaceString: function (input, template) {
+            if(input == "" || typeof input == "function") return "";
 
-	}
+            var elements = input.split("/");
+            var file = elements.pop();
+            var path = elements.join("/");
 
+            if(!this.hasPath(template) || !this.hasFile(template)){
+                throw new Error("template is missing path or file fields");
+            }
 
+            return template
+                .replace(/\{@path\}/, path)
+                .replace(/\{@file\}/, file);
+        },
+
+        hasPath: function  (path) {
+            return /\{@path\}/.test(path)
+        },
+
+        hasFile: function (file) {
+            return /\{@file\}/.test(file);
+        }
+    });
 
 
 	
 	var _render = Backbone.Marionette.Renderer.render;
+    var configurablePaths = [
+        "src/js/app/apps/{@path}/templates/{@file}.tpl",	
+		"src/js/app/components/{@path}/templates/{@file}.tpl"
+    ];
+
+    var replacer = new PathReplacer();
+
+    function createPath (template) {
+        var strPath = "";
+        _.each(configurablePaths, function(path){
+            var tempPath = replacer.replaceString(template, path);
+            if(JST.hasOwnProperty(tempPath)){
+                strPath = tempPath;
+            }
+        })
+        return strPath;
+    }
 
 
 	Backbone.Marionette.Renderer.render = function (template, data) {
-		
-
-		var configurablePaths = [
-			"src/js/app/apps/#{module}/templates/#{templateName}.tpl",
-			"src/js/app/apps/#{module}/#{submodule}/templates/#{templateName}.tpl"
-		];
-
-
 
 		if(template) {
-
-			var strPathMatch = false;
-
-			// Test all configurablePaths to find a match
-			_.each(configurablePaths, function(path){
-				var tempPath = replaceTokens(path, template);
-
-				console.log("trying path", tempPath)
-				if(JST.hasOwnProperty(tempPath)){
-					strPathMatch = tempPath;
-				}
-			})
-
-			if(strPathMatch !== false) {
+            var strPathMatch = createPath(template);
+			if(strPathMatch !== false) 
 				return JST[strPathMatch](data);
-			}else {
-				return _render.call(this, arguments);
-			}
-
-
-		}else {
-			// Allow no template
-			return "";
+			else 
+                return _render.call(this, arguments);
 		}
+        return "";
 	};
 
 }(Backbone));
