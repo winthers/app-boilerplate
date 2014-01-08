@@ -65,7 +65,7 @@ Here is a list of dependencies that will be installed:
 * grunt-preprocess
 * grunt-scriptincluder
 * grunt-contrib-clean
-* grunt-mocha
+* grunt-karma
 
 
 
@@ -161,4 +161,5 @@ apps
 
 ## Release History
  * 2013-12-11   v0.1.0   Initial release
+ * 2014-08-01   v0.1.1   Added karma as testing framework
 
