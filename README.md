@@ -1,11 +1,12 @@
 # SPA Boilerplate
 > "Make you feel sexy"
 
+**What**
 
 This is my SPA boilerplate for building Backbone Marionette Apps, it contains a very opinionated workflow that I have adopted, and offers some features that I have come to depend on.
 
+**features**
 
-#### Features
 * Bootstrapping of templates.
 * Development/Production 
     * Development
@@ -19,8 +20,17 @@ This is my SPA boilerplate for building Backbone Marionette Apps, it contains a 
 * SCSS 
     * compiles .scss files to .css.
     * creates sprite sheets.
+* Testing
+    * Uses Karma to run tests
 
- 
+
+**Table of content **
+
+
+
+[TOC]
+
+
 
 
 #### TODO
@@ -33,19 +43,24 @@ This project is still under development, so is likely to change at any time.
 
 * Scss should have a vendor contaning bootstrap/foundation
 
+* Make readme
+
 
 
 
 
 
 ## Getting Started
-This plug-in requires Grunt `~0.4.2`
+This plug-in requires:
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plug-ins. Once you're familiar with that process, you may install this plug-in with this command:
+* [NPM](http://nodejs.org/)  
+* [Grunt](http://gruntjs.com/getting-started)
+* [Ruby](https://www.ruby-lang.org/en/downloads/)
+* [Compass](http://rubygems.org/gems/compass)
 
 
 ### Installation
-This will install all dependencies
+This will install all dependencies (grunt)
 
 ```shell
 npm install
@@ -157,6 +172,83 @@ apps
                 remove.tpl
 
 ```
+
+
+## Templates 
+
+
+
+###JST
+
+JST will find all .tpl files in the app/apps  and app/components folders and compile them to a single file located in public/assets/js/templates.js.
+
+This can be configured in the gruntfile.js under JST.
+
+
+###Where should the templates be stored
+
+The templates must be stored in folders named "templates" and must be stored in either apps or the components folder, idealy each module and submodule should contain its own templates folder. 
+
+```shell
+apps
+└───pages
+    ├───home
+        └───templates
+               home.page.tpl
+
+```
+
+
+### How do i access the templates in my code.
+
+There are two ways to access the templates.
+
+
+ **Bruteforce:**
+You can call the global JST object directly 
+
+```shell
+    JST["src/js/app/apps/pages/home/templates/home.page.tpl"]
+```
+
+**Using the Shorthand:** 
+Within a Marionette.View a template can be refrenced, with a path relative to its position in "src/js/app/apps/" or "src/js/app/components/" and templatefolder and file endning should be ignored
+
+e.g: having a absolute path looking like this: 
+```shell
+src/js/app/apps/pages/home/templates/home.page.tpl
+```
+the link would be
+
+
+
+```shell
+    var View = new Marionette.ItemView.extend({
+        template: "pages/home/home.page"
+    })
+```
+
+###How do the template shorthand work?
+
+The project have overwridden the default render methode used by marionette:
+
+```shell
+src/app/config/marionette/render/render.js
+```
+
+And uses a look up path that is as follows:
+
+```shell
+"src/js/app/apps/{@path}/templates/{@file}.tpl",
+"src/js/app/components/{@path}/templates/{@file}.tpl"
+```
+## SCSS
+### Sprites
+
+    
+
+
+
 
 
 ## Release History
