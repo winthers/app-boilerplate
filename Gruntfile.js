@@ -254,18 +254,16 @@ module.exports = function(grunt) {
 
     },
 
-    /*
-      https://github.com/kmiyashiro/grunt-mocha
-    */
-    mocha: {
-      all: {
-        src: ['test/**/*.html'],
-        options: {
-          run: true
-        }
-      }
 
-    },
+    /* https://github.com/karma-runner/grunt-karma */
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        runnerPort: 9999,
+        singleRun: false,
+        browsers: ['PhantomJS']
+      }
+    }
 
   });
 
@@ -277,29 +275,21 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
-
-  // Build
   grunt.loadNpmTasks('grunt-contrib-concat');
   //grunt.loadNpmTasks("grunt-remove-logging");
-
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  // HTML Minify 
   grunt.loadNpmTasks('grunt-htmlcompressor');
   grunt.loadNpmTasks('grunt-pngmin');
-
   grunt.loadNpmTasks('grunt-contrib-clean');
-
-
   grunt.loadNpmTasks('grunt-preprocess');
-
-  grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-scriptincluder');
+  grunt.loadNpmTasks('grunt-karma');
 
   // ----------------------------------------------
   // Default task.
   // ----------------------------------------------
   grunt.registerTask('default', ["watch"]);
+  grunt.registerTask('test', ['karma']);
 
 
 
@@ -310,7 +300,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('min', ['htmlcompressor', 'pngmin']);
 
-  grunt.registerTask('test', ['mocha']);
+
 
 
 
