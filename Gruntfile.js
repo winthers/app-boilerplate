@@ -99,7 +99,7 @@ module.exports = function(grunt) {
           "public/index.html"
         ]
       },
-      
+
       liveReloadOn_JST_changes: {
         options: {
           livereload: true
@@ -159,7 +159,6 @@ module.exports = function(grunt) {
         dest: "./public/index.html",
 
         src: [
-          "hello.js",
           "<%= concat.libs.src %>",
           "<%= concat.dependiciesConfiguration.src %>",
           "<%= concat.app.src %>"
