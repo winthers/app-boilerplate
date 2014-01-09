@@ -13,7 +13,11 @@
     
     <title><!-- @echo pageTitle --></title>
 
+    
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap-theme.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+
 
 
 <!-- @if production=false -->
@@ -44,5 +48,8 @@
 <body>
     
     <!-- Define your custom stuff here -->
+
+    <div class="myRegion"></div>
+
 
 </body>

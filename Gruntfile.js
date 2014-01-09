@@ -124,7 +124,12 @@ module.exports = function(grunt) {
 
       libs: {
         src: [
-          "src/js/lib/jquery.1.9.1.min.js", "src/js/lib/underscore.1.5.2.min.js", "src/js/lib/backbone.1.0.0.min.js", "src/js/lib/backbone.marionette.1.1.0.min.js"
+          "src/js/lib/jquery.1.9.1.js", 
+          "src/js/lib/underscore.1.5.2.js", 
+          'src/js/lib/backbone.1.1.0.js',
+          'src/js/lib/backbone.wreqr.2.0.js',
+          'src/js/lib/backbone.babySitter.0.0.6.js',
+          'src/js/lib/backbone.marionette.1.4.1.js'
         ],
         dest: 'public/assets/js/lib.js'
       },

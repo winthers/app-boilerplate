@@ -90,7 +90,7 @@ Starts the watch process, that will compile templates/scss and trigger reload. t
 developing the app.
 
 ```shell
-grunt.cmd
+grunt
 ```
 
 
@@ -254,4 +254,9 @@ And uses a look up path that is as follows:
 ## Release History
  * 2013-12-11   v0.1.0   Initial release
  * 2014-08-01   v0.1.1   Added karma as testing framework
+ * 2014-09-01   v0.2.0   
+    * Made new custom render code and added tests.
+    * Karma.conf now includes files correctly
+    * updated to marionette 1.4.1
+    
 

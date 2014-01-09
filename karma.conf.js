@@ -14,7 +14,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/**/*.spec.js'
+
+        'src/js/lib/jquery.1.9.1.js',
+        'src/js/lib/underscore.1.5.2.js',
+        'src/js/lib/backbone.1.1.0.js',
+        'src/js/lib/backbone.wreqr.2.0.js',
+        'src/js/lib/backbone.babySitter.0.0.6.js',
+        'src/js/lib/backbone.marionette.1.4.1.js',
+        
+        'public/assets/js/templates.js',
+
+        'src/js/app/**/*.js',
+
+        'test/**/*.spec.js'
     ],
 
 
