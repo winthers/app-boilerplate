@@ -38,13 +38,16 @@ module.exports = function(grunt) {
      * ======================
      * https://github.com/gruntjs/grunt-contrib-jst
      */
-    jst: {
+     jst: {
       compile: {
         options: {
           prettify: true
         },
         files: {
-          "public/assets/js/templates.js": ["src/js/app/apps/**/*.tpl"]
+          "public/assets/js/templates.js": [
+            "src/js/app/apps/**/*.tpl", 
+            "src/js/app/components/**/*.tpl"
+          ]
         }
       }
     },
@@ -62,7 +65,10 @@ module.exports = function(grunt) {
       },
 
       jst: {
-        files: ["src/js/app/apps/**/*.tpl"],
+        files: [
+          "src/js/app/apps/**/*.tpl",
+          "src/js/app/components/**/*.tpl"
+        ],
         tasks: ["jst"]
       },
 
@@ -76,12 +82,30 @@ module.exports = function(grunt) {
           tasks: ["preprocess", "scriptincluder"]
       },
 
-      css: {
+      liveReloadOn_CssChanges: {
         options: {
           livereload: true
         },
         files: [
           "public/assets/css/main.css"
+        ]
+      },
+
+      liveReloadOn_indexHTMLChanges: {
+        options: {
+          livereload: true
+        },
+        files: [
+          "public/index.html"
+        ]
+      },
+      
+      liveReloadOn_JST_changes: {
+        options: {
+          livereload: true
+        },
+        files: [
+          "public/assets/js/templates.js"
         ]
       }
 
