@@ -235,11 +235,10 @@ module.exports = function(grunt) {
           speed: 10 // pngquant should be as fast as possible
         },
         files: [{
-
           expand: true, // required option
-          src: ['**/*.png'],
-          cwd: './public/assets/images/sprites/', // required option
-          dest: './public/assets/images/sprites/'
+          src: ['public/assets/images/**/*.png'],
+
+          dest: '.dist/'
         }]
       }
     },
@@ -260,11 +259,32 @@ module.exports = function(grunt) {
       },
       tmp: {
         src: [
-          ".tmp"
+          ".dist"
         ]
       }
     },
 
+   copy: {
+      dev: {
+        options: {
+
+          process: function (content, srcpath) {
+            if(srcpath.indexOf("index.html") < 0 ) return content; 
+            // only process index.html.
+            return  content
+                .replace(/<script>document.write.*<\/script>/, "") // removelivereload livereload
+                .replace(/src='\.\.\/src/g, "src='assets");        // fix script paths.
+          }
+        },
+
+        files: [
+          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["src/js/**"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+        ]
+      }
+    },
 
     // maybe replace with https://github.com/yeoman/grunt-usemin
     /**
@@ -298,18 +318,9 @@ module.exports = function(grunt) {
         singleRun: false,
         browsers: ['PhantomJS']
       }
-    },
-
-    copy: {
-      dev: {
-        files: [
-          {expand: true,  src: ["public/assets/**"], dest: ".tmp/", filter: ""},
-          {expand: true,  src: ["src/js/**"], dest: ".tmp/", filter: ""}
-
-
-        ]
-      }
     }
+
+ 
     
 
 
@@ -340,16 +351,16 @@ module.exports = function(grunt) {
   // Default task.
   // ----------------------------------------------
   grunt.registerTask('default', ["watch"]);
-  grunt.registerTask('test', ['karma']);
+  
+
+  
 
 
 
-  grunt.registerTask("build:prod", ["compass", "jst", "concat", "uglify", "clean", "preprocess"]);
-  grunt.registerTask("build:dev", ["compass", "jst", "concat", "preprocess", "scriptincluder"]);
-
-
-
-  grunt.registerTask('min', ['htmlcompressor', 'pngmin']);
+  grunt.registerTask("build:dev", ["clean:tmp", "copy:dev", "pngmin"]);
+  
+  //grunt.registerTask("build:prod", ["compass", "jst", "concat", "preprocess", "scriptincluder"]);
+  //grunt.registerTask('min', ['htmlcompressor', 'pngmin']);
 
 
 
