@@ -27,7 +27,7 @@ module.exports = function(grunt) {
           imagesDir: "./public/assets/images/",
           generatedImagesDir: "./public/assets/images/sprites",
           generatedImagesPath: "./public/assets/images/sprites",
-          httpGeneratedImagesPath: "../public/assets/images/sprites",
+          httpGeneratedImagesPath: "../../assets/images/sprites/",
           raw: "preferred_syntax = :sass\n" // Use `raw` since it's not directly available
         }
       }
