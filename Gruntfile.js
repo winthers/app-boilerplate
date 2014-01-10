@@ -171,6 +171,8 @@ module.exports = function(grunt) {
       }
     },
 
+
+
     /**
      * Removes logging from files
      * ==========================
@@ -255,6 +257,11 @@ module.exports = function(grunt) {
         src: [
           ".sass-cache"
         ]
+      },
+      tmp: {
+        src: [
+          ".tmp"
+        ]
       }
     },
 
@@ -291,7 +298,21 @@ module.exports = function(grunt) {
         singleRun: false,
         browsers: ['PhantomJS']
       }
+    },
+
+    copy: {
+      dev: {
+        files: [
+          {expand: true,  src: ["public/assets/**"], dest: ".tmp/", filter: ""},
+          {expand: true,  src: ["src/js/**"], dest: ".tmp/", filter: ""}
+
+
+        ]
+      }
     }
+    
+
+
 
   });
 
@@ -312,6 +333,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-scriptincluder');
   grunt.loadNpmTasks('grunt-karma');
+
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // ----------------------------------------------
   // Default task.

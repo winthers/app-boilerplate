@@ -3,3 +3,5 @@ npm-debug.log
 .sass-cache
 .idea
 .svn
+.tmp
+dist

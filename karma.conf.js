@@ -23,7 +23,8 @@ module.exports = function(config) {
         'src/js/lib/backbone.marionette.1.4.1.js',
         
         'public/assets/js/templates.js',
-
+        
+        'src/js/app/utils/*.js',
         'src/js/app/**/*.js',
 
         'test/**/*.spec.js'
