@@ -9,6 +9,11 @@
 
 $frontend-layout:smart;
 
+/* Include the dimensions of each sprite
+	$(spritename)-sprite-dimensions: true;
+*/
+$frontend-sprite-dimensions: true; 
+
 @import "tec/backend/*.png";
 @import "tec/frontend/*.png";
 @import "tec/enviorment/*.png";
