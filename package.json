@@ -1,7 +1,7 @@
 {
   "name": "spa-boilerplate",
   "version": "0.1.0",
-  "description": "Bootstrap for my html5/spa projects",
+  "description": "Bootstrap for SPA projects",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,19 +11,16 @@
     "url": "https://github.com/winthers/spa-bootstrap.git"
   },
   "author": "Martin B. Winther",
-  "license": "MIT",
-  "readmeFilename": "readme.md",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-contrib-jst": "~0.5.1",
-    "grunt-contrib-compass": "~0.5.0",
+    "grunt-contrib-compass": "latest",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-preprocess": "~3.0.1",
     "grunt-mocha": "latest",
-    "grunt-htmlcompressor": "latest",
     "grunt-pngmin": "latest",
     "grunt-scriptincluder": "latest"
   },
@@ -40,9 +37,10 @@
     "karma-requirejs": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
-    "grunt-karma": "~0.6.2"
+    "grunt-karma": "~0.6.2",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-remove-logging": "~0.2.0"
   },
-  "gitHead": "71795cfa478122d2988b39757fc138e3309939b1",
   "directories": {
     "test": "test"
   },
@@ -51,5 +49,8 @@
     "for",
     "my",
     "spas"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/winthers/spa-bootstrap/issues"
+  }
 }

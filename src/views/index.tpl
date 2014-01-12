@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable"           content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
     
-    <title><!-- @echo pageTitle --></title>
+    <title>SPA-Boilerplate</title>
 
     
     <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css" />
@@ -20,36 +20,25 @@
 
 
 
-<!-- @if production=false -->
-    
-    <!-- livereload
-    ****************** -->
+    <!-- livereload -->
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
-    <!-- JST:Template Bootstrapping
-    ******************************** -->
+
+    <!-- JST:Template Bootstrapping -->
     <script type="text/javascript" src="assets/js/templates.js"></script>
 
-
     <!-- [@include_scripts] -->
-
-
-
-<!-- @endif -->
-
-
-<!-- @if production=true -->
-    <script type="text/javascript" src="js/templates.js"></script>
-    <script type="text/javascript" src="js/lib.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-<!-- @endif -->
 </head>
-
 <body>
-    
     <!-- Define your custom stuff here -->
+    <div class="myRegion container">
 
-    <div class="myRegion"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>SPA-Boilerplate</h1>
+            </div>
+        </div>
 
-
+    </div>
+    <!-- /Define your custom stuff here -->
 </body>

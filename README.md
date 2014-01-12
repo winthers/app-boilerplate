@@ -1,9 +1,11 @@
 # SPA Boilerplate
 > "Make you feel sexy"
 
-**What**
+This is my SPA boilerplate for building Backbone Marionette Apps, 
+it contains a very opinionated workflow that I have adopted, and 
+offers some features that I have come to depend on.
 
-This is my SPA boilerplate for building Backbone Marionette Apps, it contains a very opinionated workflow that I have adopted, and offers some features that I have come to depend on.
+
 
 **features**
 
@@ -24,12 +26,16 @@ This is my SPA boilerplate for building Backbone Marionette Apps, it contains a 
     * Uses Karma to run tests
 
 
-**Table of content **
+
+## Documentation Index
 
 
-
-[TOC]
-
+* [Getting started](#getting-started)
+* [Using the CLI](#using-the-cli)
+* [Templates](#templates)
+    * [JST Tenplate Bootstrapping](#jst)
+    * [Where should the templates be stored](#where-should-the-templates-be-stored)
+    * [How do i access the templates in my code](#how-do-i-access-the-templates-in-my-code)
 
 
 
@@ -37,7 +43,6 @@ This is my SPA boilerplate for building Backbone Marionette Apps, it contains a 
 
 This project is still under development, so is likely to change at any time.
 
-* Make a better build process (All assets should be moved to a .tmp folder and mini-fiction of html and images should take place before moving all files to a dist folder (like yeoman)).
 
 * Maybe the vendor scripts should be pulled in with bower.
 
@@ -66,36 +71,35 @@ This will install all dependencies (grunt)
 npm install
 ```
 
-### Dependencies 
-
-Here is a list of dependencies that will be installed:
-
-* grunt-contrib-compass
-* grunt-contrib-jst
-* grunt-contrib-watch
-* grunt-contrib-concat
-* grunt-contrib-uglify
-* grunt-htmlcompressor
-* grunt-pngmin
-* grunt-preprocess
-* grunt-scriptincluder
-* grunt-contrib-clean
-* grunt-karma
 
 
 
 ## Using the CLI
 
-Starts the watch process, that will compile templates/scss and trigger reload. this should be used when 
-developing the app.
+
+### Default
 
 ```shell
 grunt
 ```
+Starts the watch process, that will compile templates/scss and trigger reload. this should be used when 
+developing the app.
 
+### Build
 
+Exports the project to the .dist folder. 
 
-### Project layout
+```shell
+grunt build:prod
+```
+No minification other then images.
+
+```shell
+grunt build:dev
+```
+Scripts, Images, Css are minified.
+
+## Project layout
 
 ```shell
 root
@@ -199,7 +203,7 @@ apps
 ```
 
 
-### How do i access the templates in my code.
+###How do i access the templates in my code
 
 There are two ways to access the templates.
 
@@ -258,5 +262,11 @@ And uses a look up path that is as follows:
     * Made new custom render code and added tests.
     * Karma.conf now includes files correctly
     * updated to marionette 1.4.1
+
+ * 2014-12-01   v0.3.0
+    * Removed the dependecie on preprocessor.
+    * Made build scripts for dev & production
+    * Now comes with twitter bootstrap 3
+
     
 

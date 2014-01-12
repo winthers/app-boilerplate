@@ -5,23 +5,17 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    /**
-     * Configure Project Settings
-     * ==========================
-     */
-    settings: {
-      production: false,
-      pageTitle: "HTML5/SPA Project Template",
-    },
+
 
     /**
      * CSS PRE PROCESSOR
      * =================
      * https://npmjs.org/package/grunt-contrib-compass*/
-
     compass: {
-      dist: {
+      dev: {
         options: {
+          noLineComments: false,
+          outputStyle: "expanded",
           sassDir: "./src/scss",
           cssDir: "./public/assets/css",
           imagesDir: "./public/assets/images/",
@@ -29,6 +23,20 @@ module.exports = function(grunt) {
           generatedImagesPath: "./public/assets/images/sprites",
           httpGeneratedImagesPath: "../../assets/images/sprites/",
           raw: "preferred_syntax = :sass\n" // Use `raw` since it's not directly available
+        }
+      },
+
+      prod: {
+        options: {
+          noLineComments: true,
+          outputStyle: 'compressed',
+          sassDir: "./src/scss",
+          cssDir: "./public/assets/css",
+          imagesDir: "./public/assets/images/",
+          generatedImagesDir: "./public/assets/images/sprites",
+          generatedImagesPath: "./public/assets/images/sprites",
+          httpGeneratedImagesPath: "../../assets/images/sprites/",
+          raw: "preferred_syntax = :sass\n"
         }
       }
     },
@@ -61,7 +69,7 @@ module.exports = function(grunt) {
 
       scss: {
         files: ["src/scss/**/*.scss"],
-        tasks: ["compass"]
+        tasks: ["compass:dev"]
       },
 
       jst: {
@@ -74,12 +82,12 @@ module.exports = function(grunt) {
 
       indexTemplate: {
         files: ["src/views/index.tpl"],
-        tasks: ["preprocess", "scriptincluder"]
+        tasks: ["copy:indexTemplate", "scriptincluder:main"]
       },
 
       scripts: {
           files: ["src/js/*.js", "src/js/**/*.js"],
-          tasks: ["preprocess", "scriptincluder"]
+          tasks: ["copy:indexTemplate", "scriptincluder:main"]
       },
 
       liveReloadOn_CssChanges: {
@@ -154,11 +162,14 @@ module.exports = function(grunt) {
       }
     },
 
+
+    // Include scripts
+
     scriptincluder: {
 
       main: {
         options: {
-          rootPath: "../"
+          prependedPath: "../"
         },
 
         dest: "./public/index.html",
@@ -167,6 +178,34 @@ module.exports = function(grunt) {
           "<%= concat.libs.src %>",
           "<%= concat.dependiciesConfiguration.src %>",
           "<%= concat.app.src %>"
+        ]
+      },
+
+      dev: {
+        options: {
+          replacePath: "assets/js/"
+        },
+
+        dest: "./public/index.html",
+
+        src: [
+          "<%= concat.libs.src %>",
+          "<%= concat.dependiciesConfiguration.src %>",
+          "<%= concat.app.src %>"
+        ]
+      },
+
+      prod: {
+        options: {
+          replacePath: "assets/js/"
+        },
+
+        dest: "./public/index.html",
+
+        src: [
+          "<%= concat.libs.dest %>",
+          "<%= concat.dependiciesConfiguration.dest %>",
+          "<%= concat.app.dest %>"
         ]
       }
     },
@@ -203,22 +242,7 @@ module.exports = function(grunt) {
     },
 
 
-    /**
-     * Minify html
-     * ========================
-     * https://github.com/jney/grunt-htmlcompressor
-     */
-    htmlcompressor: {
-      compile: {
-        files: {
-          'public/index-min.html': 'public/index.html'
-        },
-        options: {
-          type: 'html',
-          preserveServerScript: true
-        }
-      }
-    },
+   
 
     /**
      * Minify Png
@@ -252,28 +276,24 @@ module.exports = function(grunt) {
      * This can be configured like this: http://gruntjs.com/configuring-tasks
      */
     clean: {
-      tempFiles: {
+      scssCache: {
         src: [
           ".sass-cache"
         ]
       },
-      tmp: {
+      dist: {
         src: [
           ".dist"
         ]
       }
     },
 
-   copy: {
+    copy: {
       dev: {
         options: {
-
-          process: function (content, srcpath) {
-            if(srcpath.indexOf("index.html") < 0 ) return content; 
-            // only process index.html.
-            return  content
-                .replace(/<script>document.write.*<\/script>/, "") // removelivereload livereload
-                .replace(/src='\.\.\/src/g, "src='assets");        // fix script paths.
+         process: function (content, srcpath) {
+            if(srcpath.indexOf("index.html") < 0) return content; 
+            return  content.replace(/<script>document.write.*<\/script>/, "")
           }
         },
 
@@ -283,46 +303,29 @@ module.exports = function(grunt) {
           {expand: true,   src: ["src/js/**"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
           {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
         ]
-      }
-    },
-
-    // maybe replace with https://github.com/yeoman/grunt-usemin
-    /**
-     * PROD / DEV
-     * ==========
-     * https://github.com/jsoverson/grunt-preprocess
-     *
-     * Creates diffrent index.html based on the production:boolean value.
-     */
-    preprocess: {
-      options: {
-        context: {
-          DEBUG: true,
-          production: "<%= settings.production %>",
-          pageTitle: "<%= settings.pageTitle %>"
-        }
       },
-      html: {
-        src: 'src/views/index.tpl',
-        dest: 'public/index.html'
-      }
 
-    },
+      prod: {
+        options: {
+         process: function (content, srcpath) {
+            if(srcpath.indexOf("index.html") < 0) return content; 
+            return  content.replace(/<script>document.write.*<\/script>/, "")
+          }
+        },
+        files: [
+          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+        ]
 
+      },
 
-    /* https://github.com/karma-runner/grunt-karma */
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        runnerPort: 9999,
-        singleRun: false,
-        browsers: ['PhantomJS']
+      indexTemplate: {
+        files: [
+          {expand: false, src: ["src/views/index.tpl"], dest: "public/index.html", filter:"isFile", faltten: true}
+        ]
       }
     }
-
- 
-    
-
 
 
   });
@@ -336,34 +339,45 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  //grunt.loadNpmTasks("grunt-remove-logging");
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-htmlcompressor');
-  grunt.loadNpmTasks('grunt-pngmin');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-preprocess');
-  grunt.loadNpmTasks('grunt-scriptincluder');
-  grunt.loadNpmTasks('grunt-karma');
-
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  
+  grunt.loadNpmTasks('grunt-pngmin');
+  grunt.loadNpmTasks('grunt-scriptincluder');
+  grunt.loadNpmTasks("grunt-remove-logging");
+
 
   // ----------------------------------------------
   // Default task.
   // ----------------------------------------------
+
+
+
   grunt.registerTask('default', ["watch"]);
-  
+    
+  grunt.registerTask("build:dev",  [
+    "copy:indexTemplate", 
+    "scriptincluder:dev", 
+    "clean:scssCache", 
+    "compass:dev", 
+    "jst",
+    "clean:dist",
+    "copy:dev", 
+    "pngmin"
+  ]);
 
-  
-
-
-
-  grunt.registerTask("build:dev", ["clean:tmp", "copy:dev", "pngmin"]);
-  
-  //grunt.registerTask("build:prod", ["compass", "jst", "concat", "preprocess", "scriptincluder"]);
-  //grunt.registerTask('min', ['htmlcompressor', 'pngmin']);
-
-
-
-
+  grunt.registerTask("build:prod", [
+    "copy:indexTemplate", 
+    "scriptincluder:prod",
+    "clean:scssCache", 
+    "compass:prod", 
+    "jst",
+    "concat",
+    "uglify",
+    "clean:dist",
+    "copy:prod", 
+    "pngmin"
+  ]);
 
 };
