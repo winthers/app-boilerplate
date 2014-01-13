@@ -186,7 +186,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./public/index.html",
+        dest: "./.dist/public/index.html",
 
         src: [
           "<%= concat.libs.src %>",
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./public/index.html",
+        dest: "./.dist/public/index.html",
 
         src: [
           "<%= concat.libs.dest %>",
@@ -298,9 +298,9 @@ module.exports = function(grunt) {
         },
 
         files: [
-          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
-          {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["src/js/**"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["public/assets/**"],     dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/js/**/*.js"], dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["src/js/**/*.js"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
           {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
         ]
       },
@@ -342,7 +342,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  
+
   grunt.loadNpmTasks('grunt-pngmin');
   grunt.loadNpmTasks('grunt-scriptincluder');
   grunt.loadNpmTasks("grunt-remove-logging");
@@ -352,24 +352,33 @@ module.exports = function(grunt) {
   // Default task.
   // ----------------------------------------------
 
-
-
   grunt.registerTask('default', ["watch"]);
+
+
+   grunt.registerTask("build:default",  [
+    "copy:indexTemplate", 
+    "scriptincluder:main", 
+    "clean:scssCache", 
+    "compass:dev", 
+    "jst"
+  ]);
+
+
+
     
   grunt.registerTask("build:dev",  [
     "copy:indexTemplate", 
-    "scriptincluder:dev", 
     "clean:scssCache", 
     "compass:dev", 
     "jst",
     "clean:dist",
     "copy:dev", 
+    "scriptincluder:dev", 
     "pngmin"
   ]);
 
   grunt.registerTask("build:prod", [
     "copy:indexTemplate", 
-    "scriptincluder:prod",
     "clean:scssCache", 
     "compass:prod", 
     "jst",
@@ -377,6 +386,7 @@ module.exports = function(grunt) {
     "uglify",
     "clean:dist",
     "copy:prod", 
+    "scriptincluder:prod",
     "pngmin"
   ]);
 
