@@ -307,7 +307,7 @@ module.exports = function(grunt) {
           noProcess: ['**/**.{eot,evg,ttf,woff}']
         },
         files: [
-          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
          
         ]
