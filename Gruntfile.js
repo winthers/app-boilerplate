@@ -294,14 +294,16 @@ module.exports = function(grunt) {
          process: function (content, srcpath) {
             if(srcpath.indexOf("index.html") < 0) return content; 
             return  content.replace(/<script>document.write.*<\/script>/, "")
-          }
+          },
+
+          noProcess: ['*.{png,gif,jpg,ico,eot,evg,ttf,woff}']
         },
 
         files: [
-          {expand: true,   src: ["public/assets/**"],     dest: ".dist/", filter: ""},
-          {expand: true,   src: ["public/assets/js/**/*.js"], dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["src/js/**/*.js"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+          {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/js/**/*.js"],   dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["src/js/**/*.js"],             dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["public/index.html"],          dest: ".dist/"}
         ]
       },
 
@@ -310,7 +312,8 @@ module.exports = function(grunt) {
          process: function (content, srcpath) {
             if(srcpath.indexOf("index.html") < 0) return content; 
             return  content.replace(/<script>document.write.*<\/script>/, "")
-          }
+          },
+          noProcess: ['*.{png,gif,jpg,ico,eot,evg,ttf,woff}']
         },
         files: [
           {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
@@ -323,6 +326,11 @@ module.exports = function(grunt) {
       indexTemplate: {
         files: [
           {expand: false, src: ["src/views/index.tpl"], dest: "public/index.html", filter:"isFile", faltten: true}
+        ]
+      },
+      indexTemplateToDist: {
+        files: [
+          {expand: false, src: ["src/views/index.tpl"], dest: ".dist/public/index.html", filter:"isFile", faltten: true}
         ]
       }
     }
@@ -363,11 +371,8 @@ module.exports = function(grunt) {
     "jst"
   ]);
 
-
-
-    
   grunt.registerTask("build:dev",  [
-    "copy:indexTemplate", 
+    "copy:indexTemplateToDist", 
     "clean:scssCache", 
     "compass:dev", 
     "jst",
@@ -378,7 +383,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask("build:prod", [
-    "copy:indexTemplate", 
+    "copy:indexTemplateToDist", 
     "clean:scssCache", 
     "compass:prod", 
     "jst",
