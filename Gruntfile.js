@@ -186,7 +186,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./.dist/public/index.html",
+        dest: ".dist/public/index.html",
 
         src: [
           "<%= concat.libs.src %>",
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./.dist/public/index.html",
+        dest: ".dist/public/index.html",
 
         src: [
           "<%= concat.libs.dest %>",
@@ -291,34 +291,25 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         options: {
-         process: function (content, srcpath) {
-            if(srcpath.indexOf("index.html") < 0) return content; 
-            return  content.replace(/<script>document.write.*<\/script>/, "")
-          },
-
-          noProcess: ['*.{png,gif,jpg,ico,eot,evg,ttf,woff}']
+          noProcess: ['**/**.{eot,evg,ttf,woff}']
         },
 
         files: [
           {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**/*.js"],   dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
           {expand: true,   src: ["src/js/**/*.js"],             dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["public/index.html"],          dest: ".dist/"}
+         
         ]
       },
 
       prod: {
         options: {
-         process: function (content, srcpath) {
-            if(srcpath.indexOf("index.html") < 0) return content; 
-            return  content.replace(/<script>document.write.*<\/script>/, "")
-          },
-          noProcess: ['*.{png,gif,jpg,ico,eot,evg,ttf,woff}']
+          noProcess: ['**/**.{eot,evg,ttf,woff}']
         },
         files: [
           {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+         
         ]
 
       },
@@ -329,6 +320,11 @@ module.exports = function(grunt) {
         ]
       },
       indexTemplateToDist: {
+         options: {
+          process: function (content, srcpath) {
+            return  content.replace(/<script>document.write.*<\/script>/, "")
+          }
+        },
         files: [
           {expand: false, src: ["src/views/index.tpl"], dest: ".dist/public/index.html", filter:"isFile", faltten: true}
         ]
@@ -372,24 +368,25 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask("build:dev",  [
-    "copy:indexTemplateToDist", 
+    "clean:dist",
     "clean:scssCache", 
+    "copy:indexTemplateToDist", 
     "compass:dev", 
     "jst",
-    "clean:dist",
     "copy:dev", 
     "scriptincluder:dev", 
     "pngmin"
+    
   ]);
 
   grunt.registerTask("build:prod", [
-    "copy:indexTemplateToDist", 
+    "clean:dist",
     "clean:scssCache", 
+    "copy:indexTemplateToDist", 
     "compass:prod", 
     "jst",
     "concat",
     "uglify",
-    "clean:dist",
     "copy:prod", 
     "scriptincluder:prod",
     "pngmin"
