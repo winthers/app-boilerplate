@@ -186,7 +186,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./public/index.html",
+        dest: ".dist/public/index.html",
 
         src: [
           "<%= concat.libs.src %>",
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
           replacePath: "assets/js/"
         },
 
-        dest: "./public/index.html",
+        dest: ".dist/public/index.html",
 
         src: [
           "<%= concat.libs.dest %>",
@@ -291,31 +291,25 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         options: {
-         process: function (content, srcpath) {
-            if(srcpath.indexOf("index.html") < 0) return content; 
-            return  content.replace(/<script>document.write.*<\/script>/, "")
-          }
+          noProcess: ['**/**.{eot,evg,ttf,woff}']
         },
 
         files: [
-          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
-          {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["src/js/**"],                dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+          {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/js/**/*.js"],   dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["src/js/**/*.js"],             dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+         
         ]
       },
 
       prod: {
         options: {
-         process: function (content, srcpath) {
-            if(srcpath.indexOf("index.html") < 0) return content; 
-            return  content.replace(/<script>document.write.*<\/script>/, "")
-          }
+          noProcess: ['**/**.{eot,evg,ttf,woff}']
         },
         files: [
-          {expand: true,   src: ["public/assets/css/**"],     dest: ".dist/", filter: ""},
+          {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-          {expand: true,   src: ["public/index.html"],        dest: ".dist/"}
+         
         ]
 
       },
@@ -323,6 +317,16 @@ module.exports = function(grunt) {
       indexTemplate: {
         files: [
           {expand: false, src: ["src/views/index.tpl"], dest: "public/index.html", filter:"isFile", faltten: true}
+        ]
+      },
+      indexTemplateToDist: {
+         options: {
+          process: function (content, srcpath) {
+            return  content.replace(/<script>document.write.*<\/script>/, "")
+          }
+        },
+        files: [
+          {expand: false, src: ["src/views/index.tpl"], dest: ".dist/public/index.html", filter:"isFile", faltten: true}
         ]
       }
     }
@@ -342,7 +346,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  
+
   grunt.loadNpmTasks('grunt-pngmin');
   grunt.loadNpmTasks('grunt-scriptincluder');
   grunt.loadNpmTasks("grunt-remove-logging");
@@ -352,31 +356,39 @@ module.exports = function(grunt) {
   // Default task.
   // ----------------------------------------------
 
-
-
   grunt.registerTask('default', ["watch"]);
-    
-  grunt.registerTask("build:dev",  [
+
+
+   grunt.registerTask("build:default",  [
     "copy:indexTemplate", 
-    "scriptincluder:dev", 
+    "scriptincluder:main", 
     "clean:scssCache", 
     "compass:dev", 
-    "jst",
+    "jst"
+  ]);
+
+  grunt.registerTask("build:dev",  [
     "clean:dist",
+    "clean:scssCache", 
+    "copy:indexTemplateToDist", 
+    "compass:dev", 
+    "jst",
     "copy:dev", 
+    "scriptincluder:dev", 
     "pngmin"
+    
   ]);
 
   grunt.registerTask("build:prod", [
-    "copy:indexTemplate", 
-    "scriptincluder:prod",
+    "clean:dist",
     "clean:scssCache", 
+    "copy:indexTemplateToDist", 
     "compass:prod", 
     "jst",
     "concat",
     "uglify",
-    "clean:dist",
     "copy:prod", 
+    "scriptincluder:prod",
     "pngmin"
   ]);
 
