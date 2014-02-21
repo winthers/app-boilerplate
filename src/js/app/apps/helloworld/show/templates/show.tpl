@@ -1,1 +1,3 @@
-<h1>Hello world</h1>  
+<div class="col-md-12 text-center">
+    <h1>SPA-Boilerplate</h1>
+</div>

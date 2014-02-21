@@ -19,26 +19,20 @@
     <link rel="stylesheet" href="assets/css/main.css" />
 
 
-
-    <!-- livereload -->
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-
+    <script id="livereload">
+        document.write('<script src="http://'+ (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>'); 
+    </script>
 
     <!-- JST:Template Bootstrapping -->
     <script type="text/javascript" src="assets/js/templates.js"></script>
-
     <!-- [@include_scripts] -->
 </head>
 <body>
     <!-- Define your custom stuff here -->
-    <div class="myRegion container">
-
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h1>SPA-Boilerplate</h1>
-            </div>
+    <div class="container">
+        <div class="row" id="myRegion" >
+        
         </div>
-
     </div>
     <!-- /Define your custom stuff here -->
 </body>

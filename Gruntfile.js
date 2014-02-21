@@ -10,7 +10,8 @@ module.exports = function(grunt) {
     /**
      * CSS PRE PROCESSOR
      * =================
-     * https://npmjs.org/package/grunt-contrib-compass*/
+     * https://npmjs.org/package/grunt-contrib-compass
+     */
     compass: {
       dev: {
         options: {
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
      * ======================
      * https://github.com/gruntjs/grunt-contrib-jst
      */
-     jst: {
+    jst: {
       compile: {
         options: {
           prettify: true
@@ -142,6 +143,13 @@ module.exports = function(grunt) {
         dest: 'public/assets/js/lib.js'
       },
 
+      vendor: {
+        src: [
+          "src/js/vendor/**/*.js", 
+        ],
+        dest: 'public/assets/js/vendor.js'
+      },
+
       dependiciesConfiguration: {
         src: ["src/js/app/config/**/*.js"],
         dest: "public/assets/js/config.js"
@@ -171,11 +179,11 @@ module.exports = function(grunt) {
         options: {
           prependedPath: "../"
         },
-
         dest: "./public/index.html",
-
         src: [
+          "src/js/app/config.dev.js",
           "<%= concat.libs.src %>",
+          "<%= concat.vendor.src %>",
           "<%= concat.dependiciesConfiguration.src %>",
           "<%= concat.app.src %>"
         ]
@@ -185,11 +193,11 @@ module.exports = function(grunt) {
         options: {
           replacePath: "assets/js/"
         },
-
         dest: ".dist/public/index.html",
-
         src: [
+          "src/js/app/config.dev.js",
           "<%= concat.libs.src %>",
+          "<%= concat.vendor.src %>",
           "<%= concat.dependiciesConfiguration.src %>",
           "<%= concat.app.src %>"
         ]
@@ -199,11 +207,11 @@ module.exports = function(grunt) {
         options: {
           replacePath: "assets/js/"
         },
-
         dest: ".dist/public/index.html",
-
         src: [
+          "src/js/app/config.prod.js",
           "<%= concat.libs.dest %>",
+          "<%= concat.vendor.dest %>",
           "<%= concat.dependiciesConfiguration.dest %>",
           "<%= concat.app.dest %>"
         ]
@@ -289,29 +297,22 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      dev: {
-        options: {
-          noProcess: ['**/**.{eot,evg,ttf,woff}']
-        },
 
+      dev: {
+        options: {noProcess: ['**/**.{eot,evg,ttf,woff}']},
         files: [
           {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**/*.js"],   dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
           {expand: true,   src: ["src/js/**/*.js"],             dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-         
         ]
       },
 
       prod: {
-        options: {
-          noProcess: ['**/**.{eot,evg,ttf,woff}']
-        },
+        options: {noProcess: ['**/**.{eot,evg,ttf,woff}']},
         files: [
           {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
           {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
-         
         ]
-
       },
 
       indexTemplate: {
@@ -322,7 +323,8 @@ module.exports = function(grunt) {
       indexTemplateToDist: {
          options: {
           process: function (content, srcpath) {
-            return  content.replace(/<script>document.write.*<\/script>/, "")
+            /* Remove Livereload block */
+            return  content.replace(/<script id="livereload">[\w\W]+?<\/script>/, "")
           }
         },
         files: [
@@ -335,10 +337,8 @@ module.exports = function(grunt) {
   });
 
   // ----------------------------------------------
-  // Register tasks.
+  // Load dependencies.
   // ----------------------------------------------
-
-  // Development
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -346,20 +346,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
-
   grunt.loadNpmTasks('grunt-pngmin');
   grunt.loadNpmTasks('grunt-scriptincluder');
   grunt.loadNpmTasks("grunt-remove-logging");
 
-
   // ----------------------------------------------
-  // Default task.
+  // Register tasks
   // ----------------------------------------------
-
   grunt.registerTask('default', ["watch"]);
 
-
-   grunt.registerTask("build:default",  [
+  grunt.registerTask("build:default",  [
     "copy:indexTemplate", 
     "scriptincluder:main", 
     "clean:scssCache", 

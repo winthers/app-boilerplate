@@ -5,7 +5,7 @@
 	window.App = App;
 
 	App.addRegions({
-		
+		contentRegion: "#myRegion"
 	})
 
 
