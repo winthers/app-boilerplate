@@ -1,0 +1,8 @@
+@import "compass/utilities/sprites";
+
+$interface-layout:smart;
+$interface-sprite-dimensions: true; 
+
+@import "interface/*.png";
+@include all-interface-sprites;
+

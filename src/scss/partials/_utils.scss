@@ -1,0 +1,61 @@
+$num-margin-classes: 	 20;
+$num-padding-classes: 	 20;
+$num-top-classes: 		 20;
+$num-left-classes: 		 20;
+$num-font-size-classes:  64;
+
+
+
+.float-left  			{ float:left !important;  }
+.float-right 			{ float:right !important; }
+.clear 		 			{ clear: both !important; }
+
+.display-none          	{ display:none  !important;}
+.display-block 		   	{ display:block !important;}
+.display-inline 		{ display: inline !important;}
+.display-inline-block  	{ display:inline-block  !important;}
+
+.visibility-hidden 		{ visibility: hidden !important;}
+.visibility-visible 	{ visibility: visible !important;}
+
+.text-left 				{ text-align: left  !important; }
+.text-center 			{ text-align: center  !important; }
+.text-right 			{ text-align: right !important; }
+
+.position-absolute 		{ position: absolute !important; }
+.position-relative 		{ position: relative !important; }
+
+
+
+/* margin */
+@for $i from 1 through $num-margin-classes {.margin-#{$i} 		 	{ margin: 			#{$i}px; }}
+@for $i from 1 through $num-margin-classes {.margin-top-#{$i} 	 	{ margin-top: 		#{$i}px; }}
+@for $i from 1 through $num-margin-classes {.margin-right-#{$i}  	{ margin-right: 	#{$i}px; }}
+@for $i from 1 through $num-margin-classes {.margin-bottom-#{$i} 	{ margin-bottom: 	#{$i}px; }}
+@for $i from 1 through $num-margin-classes {.margin-left-#{$i} 	 	{ margin-left: 		#{$i}px; }}
+
+/* padding */
+@for $i from 1 through $num-padding-classes { .padding-#{$i} 		{ padding: 			#{$i}px; }}
+@for $i from 1 through $num-padding-classes { .padding-top-#{$i} 	{ padding-top: 		#{$i}px; }}
+@for $i from 1 through $num-padding-classes { .padding-right-#{$i} 	{ padding-right: 	#{$i}px; }}
+@for $i from 1 through $num-padding-classes { .padding-bottom-#{$i} { padding-bottom: 	#{$i}px; }}
+@for $i from 1 through $num-padding-classes { .padding-left-#{$i} 	{ padding-left: 	#{$i}px; }}
+
+/* top */
+@for $i from 1 through $num-top-classes { .top-minus-#{$i}  {top: -#{$i}px; }}
+@for $i from 1 through $num-top-classes { .top-#{$i} 		{top:  #{$i}px; }}
+
+/* left */
+@for $i from 1 through $num-left-classes { .left-minus-#{$i} {left: -#{$i}px; }}
+@for $i from 1 through $num-left-classes { .left-#{$i} 		 {left:  #{$i}px; }}
+
+
+/* font size */
+@for $i from 8 through $num-font-size-classes { .font-size-#{$i} {font-size: #{$i}pt;}}
+
+
+
+/*************
+ 	Mobile 
+**************/
+.ipad-scroll { -webkit-overflow-scrolling:touch; }
