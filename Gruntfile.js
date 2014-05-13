@@ -92,32 +92,19 @@ module.exports = function(grunt) {
       },
 
       liveReloadOn_CssChanges: {
-        options: {
-          livereload: true
-        },
-        files: [
-          "public/assets/css/main.css"
-        ]
+        options: {livereload: true},
+        files: ["public/assets/css/main.css"]
       },
 
       liveReloadOn_indexHTMLChanges: {
-        options: {
-          livereload: true
-        },
-        files: [
-          "public/index.html"
-        ]
+        options: {livereload: true},
+        files: ["public/index.html"]
       },
 
       liveReloadOn_JST_changes: {
-        options: {
-          livereload: true
-        },
-        files: [
-          "public/assets/js/templates.js"
-        ]
+        options: {livereload: true},
+        files: ["public/assets/js/templates.js"]
       }
-
     },
 
     /**
@@ -158,6 +145,7 @@ module.exports = function(grunt) {
       /* Application files */
       app: {
         src: [
+          "src/js/app/config.prod.js",
           "src/js/app/app.js",
           "src/js/app/base/**/*.js",
           "src/js/app/utils/**/*.js",
@@ -209,7 +197,7 @@ module.exports = function(grunt) {
         },
         dest: ".dist/public/index.html",
         src: [
-          "src/js/app/config.prod.js",
+          "public/assets/js/config.prod.js",
           "<%= concat.libs.dest %>",
           "<%= concat.vendor.dest %>",
           "<%= concat.dependiciesConfiguration.dest %>",
@@ -311,7 +299,7 @@ module.exports = function(grunt) {
         options: {noProcess: ['**/**.{eot,evg,ttf,woff}']},
         files: [
           {expand: true,   src: ["public/assets/**"],           dest: ".dist/", filter: ""},
-          {expand: true,   src: ["public/assets/js/**"],      dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
+          {expand: true,   src: ["public/assets/js/**"],        dest: ".dist/public/assets/js/", filter: "isFile", flatten: true},
         ]
       },
 
